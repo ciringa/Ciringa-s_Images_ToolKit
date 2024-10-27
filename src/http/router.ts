@@ -15,11 +15,11 @@ import { UtilsRoutes } from "./routes/Utils.Router";
 
 export async function router(app:FastifyInstance) {
     app.addHook("preHandler",(req,res,done)=>{
-        console.log(req.method,req.routeOptions.url,req.body,req.params)
+        console.log(req.method,req.routeOptions.url,req.body?req.body:"{}",req.params?req.params:"{}")
         done()
     });
     app.addHook("onResponse",(req,res,done)=>{
-        console.log(res.statusCode)
+        console.log(req.method,req.routeOptions.url+" - "+res.statusCode)
         done()
     })
     app.register(ImagesRoutes,{
@@ -29,5 +29,4 @@ export async function router(app:FastifyInstance) {
         prefix:"/user"
     })
     app.register(UtilsRoutes,{})
-
 }

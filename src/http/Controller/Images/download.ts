@@ -8,12 +8,15 @@ export async function downloadImage(req: FastifyRequest, res: FastifyReply) {
     fileUrl: z.string(),
   }).parse(req.body);
   //const fileUrl = "C:/programacao/Ciringas_Images_ToolKit/.temp/images/7b53e78f-517a-466f-9442-382eae6299e3.png"
-  console.log(fileUrl)
+  //console.log(fileUrl)
   // Leitura do arquivo
   const file = readFileSync(fileUrl);
   // Definir cabeçalho correto do tipo de imagem
   res.header("Content-Type", "image/png"); // ou outro tipo de imagem, dependendo do arquivo
   res.send(file);
+  
+  //study it latter
+  //res.download()
 }
 
 
