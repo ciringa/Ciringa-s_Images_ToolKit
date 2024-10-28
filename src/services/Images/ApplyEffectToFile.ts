@@ -20,10 +20,14 @@ export class ApplyEffectToFileUseCase{
         switch(Number(Effect)){
             case 2: if(Number(Amount)>7){
                 throw new OutOfRangeError()
-            }
+                }break;
             case 3: if(Number(Amount)>15){
                 throw new OutOfRangeError()
-            }
+                }break;
+            case 4:
+                if(Number(Amount)<10){
+                    throw new OutOfRangeError()
+                }break;
         }
 
         //recurso que converte uma funçao em promessa

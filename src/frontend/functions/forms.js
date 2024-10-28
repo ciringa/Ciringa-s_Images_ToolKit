@@ -1,0 +1,116 @@
+//downloadImage("C:/programacao/Ciringas_Images_ToolKit/.temp/images/7b53e78f-517a-466f-9442-382eae6299e3.png")
+export async function downloadImage(psUrl) {
+    try{
+        var fileUrl = psUrl
+        const url = 'http://127.0.0.1:4545/image/download'
+        const data = {
+            fileUrl
+        }
+        const request = await fetch(url,{
+            method:"PATCH",
+            headers: {
+            'Content-Type': 'application/json', // Especifica o tipo de conteúdo como JSON
+            },
+            body:JSON.stringify(data)
+        })
+        const blob = await request.blob();
+        const file_type = blob.type.replace("image/","")
+        // Cria um URL para o blob
+        const res_url = window.URL.createObjectURL(blob);
+        // Cria um link temporário para baixar a imagem
+        const link = document.createElement("a");
+        link.href = res_url;
+        link.download = `image.${file_type}`; // Nome do arquivo a ser baixado
+        document.body.appendChild(link);
+
+        // Aciona o download
+        link.click();
+
+        // Remove o link temporário
+        document.body.removeChild(link);
+
+        // Libera o URL do Blob para liberar memória
+        window.URL.revokeObjectURL(res_url);
+
+    }catch(err){
+        console.log(err)
+    }
+}
+
+document.getElementById('form1').addEventListener('submit', async function(event) {
+    event.preventDefault(); // Impede o comportamento padrão do formulário
+
+    const form = document.getElementById('form1');
+    const formData = new FormData(form);
+
+    try {
+        const response = await fetch('http://127.0.0.1:4545/image/rescale', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            console.log('Imagem processada:', result);
+            const ptUrl = result.ResultFromPython
+            console.log("image is at: "+ptUrl)
+            await downloadImage(ptUrl)
+        } else {
+            console.error('Erro ao processar a imagem:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Erro de conexão:', error);
+    }
+});
+
+document.getElementById('form2').addEventListener('submit', async function(event) {
+event.preventDefault(); // Impede o envio padrão do formulário
+
+const form = document.getElementById('form2');
+const formData = new FormData(form); // Cria um FormData com os dados do formulário
+
+try {
+    const response = await fetch('http://127.0.0.1:4545/image/effect', {
+        method: 'POST',
+        body: formData, // Envia os dados do formulário
+    });
+    
+    if (response.ok) {
+        const result = await response.json(); // Processa a resposta como JSON
+        console.log('Imagem processada:', result);
+        const ptUrl = result.ResultFromPython
+        console.log("image is at: "+ptUrl)
+        await downloadImage(ptUrl);
+    } else {
+        console.error('Erro ao processar a imagem:', response.statusText);
+    }
+} catch (error) {
+    console.error('Erro na requisição:', error);
+}
+});
+
+document.getElementById('form3').addEventListener('submit', async function(event) {
+event.preventDefault(); // Impede o envio padrão do formulário
+
+const form = document.getElementById('form3');
+const formData = new FormData(form); // Cria um FormData com os dados do formulário
+
+try {
+    const response = await fetch('http://127.0.0.1:4545/image/remove', {
+        method: 'POST',
+        body: formData, // Envia os dados do formulário
+    });
+    
+    if (response.ok) {
+        const result = await response.json(); // Processa a resposta como JSON
+        console.log('Imagem processada:', result);
+        const ptUrl = result.ResultFromPython.replace(" ","");
+        console.log("image is at: "+ptUrl)
+        await downloadImage(ptUrl);
+    } else {
+        console.error('Erro ao processar a imagem:', response.statusText);
+    }
+} catch (error) {
+    console.error('Erro na requisição:', error);
+}
+});

@@ -19,12 +19,12 @@ if not os.path.exists(output_path):
 img = cv.imread(input_path)
 
 # https://stackoverflow.com/questions/59780034/pixelate-roi-bounding-box-and-overlay-it-on-original-image-using-opencv
-def pixelate(img):
+def pixelate(img,h=16,w=16):
     # Get input size
     height, width, _ = img.shape
 
     # Desired "pixelated" size
-    h, w = (16, 16)
+    #h, w = (16, 16)
 
     # Resize img to "pixelated" size
     temp = cv.resize(img, (w, h), interpolation=cv.INTER_LINEAR)
@@ -32,7 +32,7 @@ def pixelate(img):
     # Initialize output image
     return cv.resize(temp, (width, height), interpolation=cv.INTER_NEAREST)
 
-if(effect>3 or effect<0):
+if(effect>8 or effect<0):
     print("Error, invalid effect");
 
 else:
@@ -47,12 +47,15 @@ else:
             img = cv.Canny(img,Amount*10,(Amount*10)+125)
             pass
         case 4:
+            img = pixelate(img,Amount,Amount)
+            pass
+        case 5:
             img = cv.cvtColor(img,cv.COLOR_BGR2RGB); pass;
-        case 5:
-            img = cv.cvtColor(img,cv.COLOR_BGR2HSV); pass;
         case 6:
+            img = cv.cvtColor(img,cv.COLOR_BGR2HSV); pass;
+        case 7:
             img = cv.cvtColor(img,cv.COLOR_BGR2HLS); pass;
-        case 5:
+        case 8:
             img = cv.cvtColor(img,cv.COLOR_BGR2LUV); pass;
             
     absolute_path = (os.path.abspath(output_path)+"\ "+file_name+".png").strip()

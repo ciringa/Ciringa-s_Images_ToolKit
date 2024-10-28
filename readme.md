@@ -15,16 +15,19 @@ run a container with this image
 
 ``docker run <name>``
 
-## ChangeLog 1.0.5
+## ChangeLog 1.0.6
 
-- Login/Singup options
-- Reescale features
+- Face Recognition and modification
+- New Effects
+- Download bug fixed
 
 ## Working features 🎁
 
 - Background remove
-- minor image modifications like grayscale, blur and edges. 
+- image modifications like grayscale, blur, pixelization ,edges and color modes. 
 - Image reescale
+- Human Face Recognition and easy modifications applied 
+
 
 ## What i've learned? 🤓
 
