@@ -13,7 +13,6 @@ Action = int(parameters[2])
 
 file_name = str(uuid.uuid4())
 
-
 ## To understand the following code, read readme.md
 img = cv.imread(file_path)
 blank = np.zeros((img.shape[0], img.shape[1]), dtype="uint8")

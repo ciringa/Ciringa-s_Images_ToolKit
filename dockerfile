@@ -23,6 +23,7 @@ RUN apt-get update && apt-get install -y python3 python3-pip
 
 # Copiar o arquivo de dependências Python e instalar as bibliotecas necessárias
 COPY requirements.txt .
+
 RUN pip3 install -r requirements.txt
 
 # Definir o comando de execução da aplicação em produção (substituir 'dev' por 'start')
