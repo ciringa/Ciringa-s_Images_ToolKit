@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "tsx watch src/server.ts"
+    "dev": "tsx watch src/server.ts"
   },
   "dependencies": {
     "@fastify/cookie": "^10.0.1",

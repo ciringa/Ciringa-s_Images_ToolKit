@@ -59,6 +59,8 @@ def pixelate(image):
     # Initialize output image
     return cv.resize(temp, (width, height), interpolation=cv.INTER_NEAREST)
 
+def blur(image):
+    image = cv.blur(img,img.shape)
 
 match(Action):
     case 1: 

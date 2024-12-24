@@ -15,7 +15,7 @@ RUN npm install
 COPY . .
 
 # Expor a porta que será utilizada pela aplicação Node.js
-EXPOSE 4545
+EXPOSE 8945
 
 # Etapa 2: Instalar dependências Python
 # Atualizar os pacotes e instalar Python3 e pip
