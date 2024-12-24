@@ -1,8 +1,11 @@
-//downloadImage("C:/programacao/Ciringas_Images_ToolKit/.temp/images/7b53e78f-517a-466f-9442-382eae6299e3.png")
+import {HOST,PORT} from "../../src/lib/env"
+export const baseUrl = `http://${HOST}:${PORT}`
+
+
 export async function downloadImage(psUrl) {
     try{
         var fileUrl = psUrl
-        const url = 'http://127.0.0.1:4545/image/download'
+        const url = baseUrl+"/image/download"
         const data = {
             fileUrl
         }
@@ -37,55 +40,4 @@ export async function downloadImage(psUrl) {
     }
 }
 
-document.getElementById('form1').addEventListener('submit', async function(event) {
-    event.preventDefault(); // Impede o comportamento padrão do formulário
-
-    const form = document.getElementById('form1');
-    const formData = new FormData(form);
-
-    try {
-        const response = await fetch('http://127.0.0.1:4545/image/rescale', {
-            method: 'POST',
-            body: formData
-        });
-
-        if (response.ok) {
-            const result = await response.json();
-            console.log('Imagem processada:', result);
-            const ptUrl = result.ResultFromPython
-            console.log("image is at: "+ptUrl)
-            await downloadImage(ptUrl)
-        } else {
-            console.error('Erro ao processar a imagem:', response.statusText);
-        }
-    } catch (error) {
-        console.error('Erro de conexão:', error);
-    }
-});
-
-document.getElementById('form2').addEventListener('submit', async function(event) {
-event.preventDefault(); // Impede o envio padrão do formulário
-
-const form = document.getElementById('form2');
-const formData = new FormData(form); // Cria um FormData com os dados do formulário
-
-try {
-    const response = await fetch('http://127.0.0.1:4545/image/effect', {
-        method: 'POST',
-        body: formData, // Envia os dados do formulário
-    });
-    
-    if (response.ok) {
-        const result = await response.json(); // Processa a resposta como JSON
-        console.log('Imagem processada:', result);
-        const ptUrl = result.ResultFromPython
-        console.log("image is at: "+ptUrl)
-        await downloadImage(ptUrl);
-    } else {
-        console.error('Erro ao processar a imagem:', response.statusText);
-    }
-} catch (error) {
-    console.error('Erro na requisição:', error);
-}
-});
 

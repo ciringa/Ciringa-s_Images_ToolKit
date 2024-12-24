@@ -1,14 +1,15 @@
 
 import {baseUrl, downloadImage} from "../forms"
 
-document.getElementById('form3').addEventListener('submit', async function(event) {
+//apply effect to image
+document.getElementById('form2').addEventListener('submit', async function(event) {
     event.preventDefault(); // Impede o envio padrão do formulário
-
-    const form = document.getElementById('form3');
+    
+    const form = document.getElementById('form2');
     const formData = new FormData(form); // Cria um FormData com os dados do formulário
-
+    
     try {
-        const response = await fetch(baseUrl+'/image/remove', {
+        const response = await fetch(baseUrl+'/image/effect', {
             method: 'POST',
             body: formData, // Envia os dados do formulário
         });
@@ -16,7 +17,7 @@ document.getElementById('form3').addEventListener('submit', async function(event
         if (response.ok) {
             const result = await response.json(); // Processa a resposta como JSON
             console.log('Imagem processada:', result);
-            const ptUrl = result.ResultFromPython.replace(" ","");
+            const ptUrl = result.ResultFromPython
             console.log("image is at: "+ptUrl)
             await downloadImage(ptUrl);
         } else {
@@ -26,3 +27,5 @@ document.getElementById('form3').addEventListener('submit', async function(event
         console.error('Erro na requisição:', error);
     }
 });
+    
+    
